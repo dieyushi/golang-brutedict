@@ -1,5 +1,9 @@
 package brutedict
 
+import (
+	"bytes"
+)
+
 type BruteDict struct {
 	isnum   bool
 	islow   bool
@@ -72,7 +76,8 @@ func (bd *BruteDict) list(str []byte, b []byte, l int, j int) {
 		if j+1 < l {
 			bd.list(str, b, l, j+1)
 		} else {
-			bd.queue <- string(b)
+			n := bytes.IndexByte(b, 0)
+			bd.queue <- string(b[:n])
 		}
 	}
 }
